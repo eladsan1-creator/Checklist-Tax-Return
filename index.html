@@ -352,7 +352,10 @@ body { font-family: 'Heebo', sans-serif; background: var(--cream); color: var(--
     <div class="login-sub">עו"ד ורו"ח | ייעוץ מס</div>
     <div class="login-divider"></div>
     <label class="login-label">סיסמה</label>
-    <input type="password" class="login-input" id="pwInput" placeholder="הזן סיסמה" onkeydown="if(event.key==='Enter')doLogin()">
+    <div style="position:relative;margin-bottom:16px">
+      <input type="password" class="login-input" id="pwInput" placeholder="הזן סיסמה" onkeydown="if(event.key==='Enter')doLogin()" style="margin-bottom:0;padding-left:42px">
+      <button id="eyeBtn" onclick="var i=document.getElementById('pwInput');i.type=i.type==='password'?'text':'password';document.getElementById('eyeBtn').textContent=i.type==='password'?'👁':'🙈'" style="position:absolute;left:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:16px;padding:0">👁</button>
+    </div>
     <button class="login-btn" onclick="doLogin()">כניסה למערכת</button>
     <div class="login-err" id="loginErr">סיסמה שגויה</div>
   </div>
@@ -497,12 +500,20 @@ function deepClone(obj) { return JSON.parse(JSON.stringify(obj)); }
 function doLogin() {
   const pw = document.getElementById('pwInput').value;
   if (pw === PASSWORD) {
-    document.getElementById('loginView').classList.remove('active');
-    document.getElementById('appShell').classList.add('active');
-    renderAll();
+    sessionStorage.setItem('bm_auth', '1');
+    window.open(window.location.href + '?app=1', '_blank');
   } else {
     document.getElementById('loginErr').style.display = 'block';
   }
+}
+
+// Check if we're in app mode
+if (new URLSearchParams(window.location.search).get('app') === '1' && sessionStorage.getItem('bm_auth') === '1') {
+  document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('loginView').classList.remove('active');
+    document.getElementById('appShell').classList.add('active');
+    renderAll();
+  });
 }
 function doLogout() {
   document.getElementById('appShell').classList.remove('active');
