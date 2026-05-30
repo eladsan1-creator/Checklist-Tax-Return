@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>הכנת דוח שנתי | משרד בן משה</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700&family=Frank+Ruhl+Libre:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #1a2744;
+    --navy-light: #243258;
+    --gold: #c9a84c;
+    --gold-light: #e8c97a;
+    --cream: #f8f5ef;
+    --white: #ffffff;
+    --green: #2d6a4f;
+    --green-bg: #d8f3dc;
+    --orange: #b5451b;
+    --orange-bg: #fde8e0;
+    --blue-bg: #e8eef8;
+    --gray: #6b7280;
+    --border: #ddd6c8;
+    --shadow: 0 4px 24px rgba(26,39,68,0.10);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Heebo', sans-serif;
+    background: var(--cream);
+    color: var(--navy);
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  .header {
+    background: var(--navy);
+    padding: 28px 24px 22px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(135deg, rgba(201,168,76,0.12) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .header-logo {
+    font-family: 'Frank Ruhl Libre', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+  }
+  .header-sub {
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .header-divider {
+    width: 40px; height: 1px;
+    background: var(--gold);
+    margin: 12px auto;
+    opacity: 0.5;
+  }
+  .header-title {
+    font-size: 15px;
+    color: rgba(255,255,255,0.85);
+    font-weight: 400;
+  }
+  .client-name-display {
+    font-size: 18px;
+    color: var(--white);
+    font-weight: 600;
+    margin-top: 4px;
+  }
+
+  /* PROGRESS */
+  .progress-wrap {
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    padding: 16px 20px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(26,39,68,0.07);
+  }
+  .progress-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+  }
+  .progress-label { font-size: 13px; color: var(--gray); }
+  .progress-count { font-size: 13px; font-weight: 600; color: var(--navy); margin-right: auto; }
+  .progress-bar-bg {
+    height: 5px;
+    background: var(--border);
+    border-radius: 99px;
+    overflow: hidden;
+  }
+  .progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--gold), var(--gold-light));
+    border-radius: 99px;
+    transition: width 0.4s ease;
+    width: 0%;
+  }
+
+  /* MAIN */
+  .main { padding: 20px 16px 100px; max-width: 640px; margin: 0 auto; }
+
+  /* INTRO CARD */
+  .intro-card {
+    background: var(--navy);
+    border-radius: 14px;
+    padding: 20px;
+    margin-bottom: 24px;
+    color: white;
+    position: relative;
+    overflow: hidden;
+  }
+  .intro-card::after {
+    content: '📋';
+    position: absolute;
+    left: 16px; top: 50%;
+    transform: translateY(-50%);
+    font-size: 48px;
+    opacity: 0.12;
+  }
+  .intro-card h2 {
+    font-family: 'Frank Ruhl Libre', serif;
+    font-size: 17px;
+    margin-bottom: 8px;
+    color: var(--gold-light);
+  }
+  .intro-card p { font-size: 13px; color: rgba(255,255,255,0.75); line-height: 1.7; }
+
+  /* SECTION */
+  .section { margin-bottom: 20px; }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    background: var(--navy);
+    border-radius: 10px 10px 0 0;
+    cursor: pointer;
+  }
+  .section-icon { font-size: 18px; }
+  .section-title { font-size: 14px; font-weight: 600; color: var(--white); flex: 1; }
+  .section-badge {
+    font-size: 11px;
+    background: rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.8);
+    padding: 2px 8px;
+    border-radius: 20px;
+  }
+  .section-toggle { color: rgba(255,255,255,0.5); font-size: 16px; transition: transform 0.2s; }
+  .section-toggle.open { transform: rotate(180deg); }
+
+  .section-items {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-top: none;
+    border-radius: 0 0 10px 10px;
+    overflow: hidden;
+  }
+  .section-items.collapsed { display: none; }
+
+  /* ITEM */
+  .item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 13px 16px;
+    border-bottom: 1px solid #f0ece4;
+    transition: background 0.15s;
+    cursor: default;
+  }
+  .item:last-child { border-bottom: none; }
+  .item-icon { font-size: 16px; margin-top: 1px; flex-shrink: 0; }
+  .item-body { flex: 1; }
+  .item-text { font-size: 13.5px; line-height: 1.5; color: var(--navy); }
+  .item-note { font-size: 11.5px; color: var(--gray); margin-top: 3px; }
+  .item-status {
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-weight: 500;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .status-missing { background: var(--orange-bg); color: var(--orange); }
+  .status-ok { background: var(--green-bg); color: var(--green); }
+  .status-na { background: #f0f0f0; color: #999; }
+  .status-pending { background: var(--blue-bg); color: #2563eb; }
+
+  /* UPLOAD SECTION */
+  .upload-section {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px 20px;
+    margin-bottom: 20px;
+  }
+  .upload-title {
+    font-family: 'Frank Ruhl Libre', serif;
+    font-size: 16px;
+    color: var(--navy);
+    margin-bottom: 6px;
+  }
+  .upload-sub { font-size: 13px; color: var(--gray); margin-bottom: 16px; }
+
+  .upload-zone {
+    border: 2px dashed var(--border);
+    border-radius: 10px;
+    padding: 28px 16px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: var(--cream);
+    position: relative;
+  }
+  .upload-zone:hover, .upload-zone.drag-over {
+    border-color: var(--gold);
+    background: #faf6ed;
+  }
+  .upload-zone input { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; }
+  .upload-icon { font-size: 32px; margin-bottom: 8px; }
+  .upload-text { font-size: 14px; font-weight: 500; color: var(--navy); margin-bottom: 4px; }
+  .upload-hint { font-size: 12px; color: var(--gray); }
+
+  .file-list { margin-top: 12px; display: flex; flex-direction: column; gap: 8px; }
+  .file-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    background: var(--cream);
+    border-radius: 8px;
+    border: 1px solid var(--border);
+  }
+  .file-item-icon { font-size: 20px; }
+  .file-item-name { font-size: 13px; flex: 1; color: var(--navy); word-break: break-all; }
+  .file-item-size { font-size: 11px; color: var(--gray); }
+  .file-item-remove {
+    background: none; border: none; cursor: pointer;
+    color: #ccc; font-size: 18px; padding: 0 4px;
+    transition: color 0.2s;
+  }
+  .file-item-remove:hover { color: var(--orange); }
+  .file-item-status { font-size: 11px; font-weight: 500; }
+  .file-item-status.uploading { color: #2563eb; }
+  .file-item-status.done { color: var(--green); }
+  .file-item-status.error { color: var(--orange); }
+
+  .send-btn {
+    width: 100%;
+    margin-top: 16px;
+    padding: 15px;
+    background: var(--navy);
+    color: var(--white);
+    border: none;
+    border-radius: 10px;
+    font-family: 'Heebo', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  .send-btn:hover:not(:disabled) { background: var(--navy-light); transform: translateY(-1px); box-shadow: var(--shadow); }
+  .send-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+  .send-btn .btn-icon { font-size: 18px; }
+
+  /* SUCCESS */
+  .success-banner {
+    background: var(--green-bg);
+    border: 1px solid #b7e4c7;
+    border-radius: 10px;
+    padding: 16px;
+    text-align: center;
+    margin-top: 16px;
+    display: none;
+  }
+  .success-banner.show { display: block; }
+  .success-banner p { font-size: 14px; color: var(--green); font-weight: 500; }
+
+  /* FOOTER */
+  .footer {
+    text-align: center;
+    padding: 20px;
+    font-size: 12px;
+    color: var(--gray);
+  }
+
+  /* NAME INPUT */
+  .name-section {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+  .name-label { font-size: 14px; font-weight: 500; color: var(--navy); margin-bottom: 8px; display: block; }
+  .name-input {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    font-family: 'Heebo', sans-serif;
+    font-size: 14px;
+    color: var(--navy);
+    background: var(--cream);
+    outline: none;
+    transition: border-color 0.2s;
+    text-align: right;
+  }
+  .name-input:focus { border-color: var(--gold); background: white; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-logo">משרד בן משה</div>
+  <div class="header-sub">עו"ד ורו"ח | ייעוץ מס</div>
+  <div class="header-divider"></div>
+  <div class="header-title">הכנת דוח שנתי 2024</div>
+  <div class="client-name-display" id="clientNameDisplay">רשימת מסמכים נדרשים</div>
+</div>
+
+<div class="progress-wrap">
+  <div class="progress-row">
+    <span class="progress-label">מסמכים שהתקבלו</span>
+    <span class="progress-count" id="progressCount">0 / 0</span>
+  </div>
+  <div class="progress-bar-bg">
+    <div class="progress-bar-fill" id="progressBar"></div>
+  </div>
+</div>
+
+<div class="main">
+
+  <div class="intro-card">
+    <h2>שלום מהמשרד 👋</h2>
+    <p>להלן רשימת המסמכים הנדרשים לצורך הכנת הדוח השנתי שלך.<br>
+    מסמכים המסומנים <strong style="color:var(--gold-light)">חסר</strong> — יש להעביר בהקדם.<br>
+    ניתן להעלות קבצים ישירות דרך העמוד הזה.</p>
+  </div>
+
+  <div id="checklistContainer"></div>
+
+  <!-- UPLOAD -->
+  <div class="upload-section">
+    <div class="upload-title">📎 העלאת מסמכים</div>
+    <div class="upload-sub">ניתן להעלות מספר קבצים בו-זמנית. תמיכה ב-PDF, תמונות, Word, Excel.</div>
+
+    <label class="upload-zone" id="uploadZone">
+      <input type="file" id="fileInput" multiple accept=".pdf,.jpg,.jpeg,.png,.doc,.docx,.xls,.xlsx">
+      <div class="upload-icon">📂</div>
+      <div class="upload-text">לחץ לבחירת קבצים</div>
+      <div class="upload-hint">או גרור קבצים לכאן</div>
+    </label>
+
+    <div class="file-list" id="fileList"></div>
+
+    <button class="send-btn" id="sendBtn" onclick="uploadAll()" disabled>
+      <span class="btn-icon">📤</span>
+      שלח מסמכים למשרד
+    </button>
+
+    <div class="success-banner" id="successBanner">
+      <p>✅ המסמכים הועברו בהצלחה למשרד בן משה!</p>
+      <p style="font-size:12px;margin-top:4px;font-weight:400;">נחזור אליך בהקדם</p>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">משרד בן משה | עו"ד ורו"ח | כל הזכויות שמורות</div>
+
+<script>
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwopR-GkQ7Nfsboylq1kGvfpPve8k4hoNsHds-WRvgNGN_jh-vsieXjS1N1cDyEV6rt/exec";
+
+// ── Checklist data (status: ok / missing / na / pending) ─────────────────
+const sections = [
+  { icon: "👤", title: "פרטים אישיים ומשפחתיים", items: [
+    { text: "תעודת זהות + ספח", status: "missing" },
+    { text: "פרטי חשבון בנק לזיכוי מס", status: "missing" },
+    { text: "מצב משפחתי – נישואין/גירושין/פרידה", note: "רלוונטי לנקודות זיכוי", status: "missing" },
+    { text: "ילדים – תאריכי לידה, מצב משמורת", status: "missing" },
+    { text: "בן/בת זוג – הכנסות ותיק מס", status: "missing" },
+  ]},
+  { icon: "💼", title: "הכנסות מעבודה", items: [
+    { text: "טופס 106 מכל מעסיק", status: "missing" },
+    { text: "106 מכל המעסיקים – אם היה יותר מאחד", status: "missing" },
+    { text: "קצבת אבטלה – אסמכתא מביטוח לאומי", note: "אם היו תקופות ללא תעסוקה", status: "na" },
+  ]},
+  { icon: "🏪", title: "הכנסות מעסק / עצמאות", items: [
+    { text: "דפי חשבון עסקיים ינואר–דצמבר", status: "missing" },
+    { text: "רשימת הוצאות עסקיות + קבלות", note: "דלק, ניידת, ציוד, ספרות מקצועית", status: "missing" },
+    { text: "ספר קופה / חשבוניות ממוחשבות", status: "missing" },
+    { text: "תשלומי מקדמות מס הכנסה", status: "missing" },
+    { text: "אישור שנתי – מקדמות ביטוח לאומי", note: "52% מהחלק שאינו מוכר", status: "missing" },
+  ]},
+  { icon: "🏠", title: "הכנסות מנכסים ושכירות", items: [
+    { text: "הסכמי שכירות בתוקף", status: "missing" },
+    { text: "דפי חשבון – הפקדות שכירות", status: "missing" },
+    { text: "הוצאות הנכס: ארנונה, ועד, תיקונים, פחת", status: "missing" },
+  ]},
+  { icon: "📈", title: "הכנסות הון ושוק ההון", items: [
+    { text: "טופס 867 מכל בנק/ברוקר", note: "ריבית, דיבידנד, רווח הון", status: "missing" },
+    { text: "הפסדי הון לקיזוז", status: "na" },
+    { text: "ריבית על פיקדונות / חיסכון", status: "missing" },
+    { text: "רווח ממכירת ניירות ערך זרים", note: "שקלול לפי שער יציג", status: "na" },
+  ]},
+  { icon: "🛡️", title: "פנסיה, קופות גמל וביטוחים", items: [
+    { text: "אישור הפקדות שנתי – קופת גמל", note: "סעיף 47 / 45א", status: "missing" },
+    { text: "אישור הפקדות שנתי – קרן פנסיה", note: "סעיף 47 / 45א", status: "missing" },
+    { text: "אישור הפקדות – קרן השתלמות לעצמאים", note: "ניכוי עד תקרה", status: "missing" },
+    { text: "אישור פרמיה – ביטוח אובדן כושר עבודה", note: "ניכוי לפי תקנות", status: "missing" },
+    { text: "אישור פרמיה – ביטוח חיים", note: "זיכוי 25% עד תקרה", status: "missing" },
+    { text: "טפסי 161 / 161א – פרישה או משיכת כספים", status: "na" },
+  ]},
+  { icon: "🎁", title: "זיכויים וניכויים מיוחדים", items: [
+    { text: "קבלות תרומות (סעיף 46)", note: "זיכוי 35%, מוסד ברשימת רשות המסים", status: "missing" },
+    { text: "ילד עם נכות – תעודה בתוקף (סעיף 45)", status: "na" },
+    { text: "חייל משוחרר – אישור שירות", status: "na" },
+    { text: "עולה חדש / תושב חוזר – מסמכי סטטוס", status: "na" },
+  ]},
+  { icon: "🌍", title: "מידע על חו\"ל (FATCA/CRS)", items: [
+    { text: "חשבונות בנק בחו\"ל – גוף מחזיק, יתרה, ריבית", status: "missing" },
+    { text: "הכנסות מחו\"ל – שכר, דמי ניהול, תמלוגים", status: "missing" },
+    { text: "מס זר ששולם – אישורי ניכוי מס במקור", status: "missing" },
+    { text: "נכסים בחו\"ל: חברות, נדל\"ן, קרנות", status: "na" },
+  ]},
+  { icon: "📄", title: "מסמכים שוטפים וכלליים", items: [
+    { text: "כרטיסיות עו\"ש – חשבונות פרטיים ועסקיים", status: "missing" },
+    { text: "הודעות שומה קודמות / פסיקתאות", status: "missing" },
+    { text: "ייפוי כוח חתום – לייצוג מול רשות המסים", status: "missing" },
+    { text: "מסמך חריג: ירושה, מכירת נכס, מתנה", status: "na" },
+  ]},
+];
+
+const statusLabel = { missing: "חסר", ok: "התקבל ✓", na: "לא רלוונטי", pending: "בטיפול" };
+const statusClass = { missing: "status-missing", ok: "status-ok", na: "status-na", pending: "status-pending" };
+
+// ── Read client name from URL param ──────────────────────────────────────
+const urlParams = new URLSearchParams(window.location.search);
+const clientName = urlParams.get('client') || '';
+if (clientName) {
+  document.getElementById('clientNameDisplay').textContent = clientName;
+  document.title = `דוח שנתי | ${clientName}`;
+}
+
+// ── Render checklist ──────────────────────────────────────────────────────
+function renderChecklist() {
+  const container = document.getElementById('checklistContainer');
+  let totalItems = 0, okItems = 0;
+
+  sections.forEach((sec, si) => {
+    const relevantItems = sec.items.filter(i => i.status !== 'na');
+    const secOk = relevantItems.filter(i => i.status === 'ok').length;
+    totalItems += relevantItems.length;
+    okItems += secOk;
+
+    const div = document.createElement('div');
+    div.className = 'section';
+    div.innerHTML = `
+      <div class="section-header" onclick="toggleSection(${si})">
+        <span class="section-icon">${sec.icon}</span>
+        <span class="section-title">${sec.title}</span>
+        <span class="section-badge">${secOk}/${relevantItems.length}</span>
+        <span class="section-toggle" id="toggle-${si}">▼</span>
+      </div>
+      <div class="section-items" id="items-${si}">
+        ${sec.items.map(item => `
+          <div class="item">
+            <span class="item-icon">${item.status === 'ok' ? '✅' : item.status === 'na' ? '➖' : item.status === 'pending' ? '🔄' : '📋'}</span>
+            <div class="item-body">
+              <div class="item-text">${item.text}</div>
+              ${item.note ? `<div class="item-note">${item.note}</div>` : ''}
+            </div>
+            <span class="item-status ${statusClass[item.status]}">${statusLabel[item.status]}</span>
+          </div>
+        `).join('')}
+      </div>`;
+    container.appendChild(div);
+  });
+
+  // Update progress
+  document.getElementById('progressCount').textContent = `${okItems} / ${totalItems}`;
+  document.getElementById('progressBar').style.width = totalItems > 0 ? `${(okItems/totalItems*100).toFixed(0)}%` : '0%';
+}
+
+function toggleSection(si) {
+  const items = document.getElementById(`items-${si}`);
+  const toggle = document.getElementById(`toggle-${si}`);
+  items.classList.toggle('collapsed');
+  toggle.classList.toggle('open');
+}
+
+// ── File upload ───────────────────────────────────────────────────────────
+let filesToUpload = [];
+
+const fileInput = document.getElementById('fileInput');
+const fileList = document.getElementById('fileList');
+const sendBtn = document.getElementById('sendBtn');
+const uploadZone = document.getElementById('uploadZone');
+
+fileInput.addEventListener('change', e => addFiles(e.target.files));
+
+uploadZone.addEventListener('dragover', e => { e.preventDefault(); uploadZone.classList.add('drag-over'); });
+uploadZone.addEventListener('dragleave', () => uploadZone.classList.remove('drag-over'));
+uploadZone.addEventListener('drop', e => {
+  e.preventDefault();
+  uploadZone.classList.remove('drag-over');
+  addFiles(e.dataTransfer.files);
+});
+
+function addFiles(filesList) {
+  Array.from(filesList).forEach(f => {
+    if (!filesToUpload.find(x => x.name === f.name && x.size === f.size)) {
+      filesToUpload.push(f);
+    }
+  });
+  renderFileList();
+  sendBtn.disabled = filesToUpload.length === 0;
+}
+
+function removeFile(idx) {
+  filesToUpload.splice(idx, 1);
+  renderFileList();
+  sendBtn.disabled = filesToUpload.length === 0;
+}
+
+function formatSize(bytes) {
+  if (bytes < 1024) return bytes + ' B';
+  if (bytes < 1024*1024) return (bytes/1024).toFixed(0) + ' KB';
+  return (bytes/1024/1024).toFixed(1) + ' MB';
+}
+
+function getFileIcon(name) {
+  const ext = name.split('.').pop().toLowerCase();
+  if (['pdf'].includes(ext)) return '📕';
+  if (['jpg','jpeg','png','gif'].includes(ext)) return '🖼️';
+  if (['doc','docx'].includes(ext)) return '📝';
+  if (['xls','xlsx'].includes(ext)) return '📊';
+  return '📎';
+}
+
+function renderFileList() {
+  fileList.innerHTML = filesToUpload.map((f, i) => `
+    <div class="file-item" id="file-${i}">
+      <span class="file-item-icon">${getFileIcon(f.name)}</span>
+      <span class="file-item-name">${f.name}</span>
+      <span class="file-item-size">${formatSize(f.size)}</span>
+      <span class="file-item-status" id="status-${i}"></span>
+      <button class="file-item-remove" onclick="removeFile(${i})">×</button>
+    </div>`).join('');
+}
+
+function toBase64(file) {
+  return new Promise((res, rej) => {
+    const r = new FileReader();
+    r.onload = () => res(r.result.split(',')[1]);
+    r.onerror = () => rej(new Error('Read failed'));
+    r.readAsDataURL(file);
+  });
+}
+
+async function uploadAll() {
+  if (filesToUpload.length === 0) return;
+  const name = clientName || 'לקוח לא ידוע';
+  sendBtn.disabled = true;
+  sendBtn.innerHTML = '<span class="btn-icon">⏳</span> שולח...';
+
+  for (let i = 0; i < filesToUpload.length; i++) {
+    const f = filesToUpload[i];
+    const statusEl = document.getElementById(`status-${i}`);
+    if (statusEl) { statusEl.className = 'file-item-status uploading'; statusEl.textContent = 'שולח...'; }
+    try {
+      const base64 = await toBase64(f);
+      const res = await fetch(SCRIPT_URL, {
+        method: 'POST',
+        body: JSON.stringify({ clientName: name, fileName: f.name, fileData: base64, mimeType: f.type || 'application/octet-stream' })
+      });
+      const data = await res.json();
+      if (statusEl) {
+        if (data.success) { statusEl.className = 'file-item-status done'; statusEl.textContent = '✓ נשלח'; }
+        else { statusEl.className = 'file-item-status error'; statusEl.textContent = 'שגיאה'; }
+      }
+    } catch(err) {
+      if (statusEl) { statusEl.className = 'file-item-status error'; statusEl.textContent = 'שגיאה'; }
+    }
+  }
+
+  sendBtn.innerHTML = '<span class="btn-icon">✅</span> נשלח בהצלחה!';
+  document.getElementById('successBanner').classList.add('show');
+}
+
+renderChecklist();
+</script>
+</body>
+</html>
