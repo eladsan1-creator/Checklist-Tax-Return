@@ -33,13 +33,10 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: 'Heebo', sans-serif; background: var(--cream); color: var(--navy); min-height: 100vh; }
 
-/* ── VIEWS ── */
 .view { display: none !important; }
 .view.active { display: block !important; }
 
-/* ══════════════════════════════════════════
-   LOGIN
-══════════════════════════════════════════ */
+/* LOGIN */
 #loginView {
   min-height: 100vh;
   display: flex; align-items: center; justify-content: center;
@@ -49,33 +46,21 @@ body { font-family: 'Heebo', sans-serif; background: var(--cream); color: var(--
 }
 #loginView.active { display: flex !important; }
 .login-box {
-  background: var(--white);
-  border-radius: 20px;
-  padding: 48px 40px;
-  width: 360px;
-  box-shadow: var(--shadow-lg);
-  text-align: center;
+  background: var(--white); border-radius: 20px; padding: 48px 40px;
+  width: 360px; box-shadow: var(--shadow-lg); text-align: center;
 }
-.login-logo {
-  font-family: 'Frank Ruhl Libre', serif;
-  font-size: 26px; font-weight: 900;
-  color: var(--navy);
-  margin-bottom: 4px;
-}
+.login-logo { font-family: 'Frank Ruhl Libre', serif; font-size: 26px; font-weight: 900; color: var(--navy); margin-bottom: 4px; }
 .login-sub { font-size: 12px; color: var(--gray); letter-spacing: 1px; margin-bottom: 32px; }
 .login-divider { width: 40px; height: 2px; background: var(--gold); margin: 0 auto 28px; border-radius: 2px; }
 .login-label { font-size: 13px; font-weight: 500; color: var(--navy); text-align: right; margin-bottom: 6px; display: block; }
 .login-input {
-  width: 100%; padding: 12px 14px;
-  border: 1.5px solid var(--border); border-radius: var(--radius-sm);
-  font-family: 'Heebo', sans-serif; font-size: 14px;
-  color: var(--navy); background: var(--cream);
+  width: 100%; padding: 12px 14px; border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+  font-family: 'Heebo', sans-serif; font-size: 14px; color: var(--navy); background: var(--cream);
   outline: none; transition: border-color 0.2s; text-align: right; margin-bottom: 16px;
 }
 .login-input:focus { border-color: var(--gold); background: white; }
 .login-btn {
-  width: 100%; padding: 14px;
-  background: var(--navy); color: white;
+  width: 100%; padding: 14px; background: var(--navy); color: white;
   border: none; border-radius: var(--radius-sm);
   font-family: 'Heebo', sans-serif; font-size: 15px; font-weight: 600;
   cursor: pointer; transition: all 0.2s; margin-top: 4px;
@@ -83,16 +68,12 @@ body { font-family: 'Heebo', sans-serif; background: var(--cream); color: var(--
 .login-btn:hover { background: var(--navy2); transform: translateY(-1px); box-shadow: var(--shadow); }
 .login-err { font-size: 13px; color: var(--orange); margin-top: 10px; display: none; }
 
-/* ══════════════════════════════════════════
-   APP SHELL
-══════════════════════════════════════════ */
+/* APP SHELL */
 .app-shell { display: none !important; flex-direction: column; min-height: 100vh; }
 .app-shell.active { display: flex !important; }
 
 .topbar {
-  background: var(--navy);
-  padding: 0 24px;
-  height: 58px;
+  background: var(--navy); padding: 0 24px; height: 58px;
   display: flex; align-items: center; gap: 16px;
   position: sticky; top: 0; z-index: 200;
   box-shadow: 0 2px 12px rgba(0,0,0,0.2);
@@ -101,8 +82,7 @@ body { font-family: 'Heebo', sans-serif; background: var(--cream); color: var(--
 .topbar-divider { width: 1px; height: 24px; background: rgba(255,255,255,0.15); }
 .topbar-nav { display: flex; gap: 4px; flex: 1; }
 .nav-btn {
-  padding: 6px 16px; border-radius: 20px;
-  border: none; background: transparent; cursor: pointer;
+  padding: 6px 16px; border-radius: 20px; border: none; background: transparent; cursor: pointer;
   font-family: 'Heebo', sans-serif; font-size: 13px; font-weight: 500;
   color: rgba(255,255,255,0.6); transition: all 0.2s;
 }
@@ -117,9 +97,25 @@ body { font-family: 'Heebo', sans-serif; background: var(--cream); color: var(--
 
 .app-content { flex: 1; padding: 28px 24px; max-width: 1100px; margin: 0 auto; width: 100%; }
 
-/* ══════════════════════════════════════════
-   DASHBOARD
-══════════════════════════════════════════ */
+/* LOADING OVERLAY */
+.loading-overlay {
+  position: fixed; inset: 0; background: rgba(15,26,48,0.7);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 999; display: none;
+}
+.loading-overlay.show { display: flex; }
+.loading-spinner {
+  background: white; border-radius: 16px; padding: 32px 40px; text-align: center;
+}
+.spinner {
+  width: 40px; height: 40px; border: 3px solid var(--border);
+  border-top-color: var(--gold); border-radius: 50%;
+  animation: spin 0.8s linear infinite; margin: 0 auto 16px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.loading-text { font-size: 14px; color: var(--navy); font-weight: 500; }
+
+/* DASHBOARD */
 .dash-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 28px; }
 .stat-card {
   background: var(--white); border-radius: var(--radius); padding: 20px;
@@ -130,14 +126,11 @@ body { font-family: 'Heebo', sans-serif; background: var(--cream); color: var(--
 .stat-label { font-size: 12px; color: var(--gray); margin-top: 2px; }
 
 .section-title-bar {
-  display: flex; align-items: center; justify-content: space-between;
-  margin-bottom: 16px;
+  display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;
 }
 .section-heading { font-family: 'Frank Ruhl Libre', serif; font-size: 20px; font-weight: 700; }
 
-/* ══════════════════════════════════════════
-   CLIENT LIST
-══════════════════════════════════════════ */
+/* CLIENT LIST */
 .clients-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
 .client-card {
   background: var(--white); border-radius: var(--radius); padding: 20px;
@@ -150,11 +143,10 @@ body { font-family: 'Heebo', sans-serif; background: var(--cream); color: var(--
 .client-progress-bar-bg { height: 4px; background: var(--border); border-radius: 99px; overflow: hidden; margin-bottom: 6px; }
 .client-progress-bar-fill { height: 100%; border-radius: 99px; background: linear-gradient(90deg, var(--gold), var(--gold2)); transition: width 0.4s; }
 .client-progress-txt { font-size: 11px; color: var(--gray); }
-.client-card-actions { display: flex; gap: 8px; margin-top: 14px; }
+.client-card-actions { display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap; }
 .btn-sm {
   padding: 6px 12px; border-radius: 6px; border: none; cursor: pointer;
-  font-family: 'Heebo', sans-serif; font-size: 12px; font-weight: 500;
-  transition: all 0.15s;
+  font-family: 'Heebo', sans-serif; font-size: 12px; font-weight: 500; transition: all 0.15s;
 }
 .btn-primary { background: var(--navy); color: white; }
 .btn-primary:hover { background: var(--navy2); }
@@ -174,17 +166,12 @@ body { font-family: 'Heebo', sans-serif; background: var(--cream); color: var(--
 }
 .add-client-btn:hover { background: var(--navy2); transform: translateY(-1px); }
 
-/* ══════════════════════════════════════════
-   CLIENT EDITOR
-══════════════════════════════════════════ */
+/* CLIENT EDITOR */
 .editor-back {
-  display: flex; align-items: center; gap: 8px;
-  font-size: 14px; color: var(--gray); cursor: pointer;
-  margin-bottom: 20px; width: fit-content;
-  transition: color 0.2s;
+  display: flex; align-items: center; gap: 8px; font-size: 14px; color: var(--gray);
+  cursor: pointer; margin-bottom: 20px; width: fit-content; transition: color 0.2s;
 }
 .editor-back:hover { color: var(--navy); }
-
 .editor-header {
   background: var(--navy); border-radius: var(--radius); padding: 24px;
   margin-bottom: 20px; display: flex; align-items: center; gap: 16px;
@@ -203,15 +190,12 @@ body { font-family: 'Heebo', sans-serif; background: var(--cream); color: var(--
 .link-box {
   background: var(--cream); border: 1px solid var(--border);
   border-radius: var(--radius-sm); padding: 12px 16px;
-  display: flex; align-items: center; gap: 10px;
-  margin-bottom: 20px;
+  display: flex; align-items: center; gap: 10px; margin-bottom: 20px;
 }
 .link-box-url { font-size: 12px; color: var(--blue); flex: 1; word-break: break-all; direction: ltr; text-align: left; }
 .copy-btn {
-  padding: 6px 14px; border-radius: 6px;
-  background: var(--navy); color: white; border: none;
-  font-family: 'Heebo', sans-serif; font-size: 12px; cursor: pointer;
-  white-space: nowrap; flex-shrink: 0;
+  padding: 6px 14px; border-radius: 6px; background: var(--navy); color: white; border: none;
+  font-family: 'Heebo', sans-serif; font-size: 12px; cursor: pointer; white-space: nowrap; flex-shrink: 0;
 }
 .copy-btn:hover { background: var(--navy2); }
 
@@ -221,8 +205,7 @@ body { font-family: 'Heebo', sans-serif; background: var(--cream); color: var(--
   border: 1px solid var(--border); overflow: hidden; box-shadow: var(--shadow-sm);
 }
 .editor-section-header {
-  display: flex; align-items: center; gap: 10px;
-  padding: 14px 18px;
+  display: flex; align-items: center; gap: 10px; padding: 14px 18px;
   background: var(--navy); cursor: pointer;
 }
 .editor-section-icon { font-size: 16px; }
@@ -235,8 +218,7 @@ body { font-family: 'Heebo', sans-serif; background: var(--cream); color: var(--
 
 .editor-item {
   display: flex; align-items: center; gap: 12px;
-  padding: 10px 18px; border-bottom: 1px solid #f5f1eb;
-  transition: background 0.1s;
+  padding: 10px 18px; border-bottom: 1px solid #f5f1eb; transition: background 0.1s;
 }
 .editor-item:last-child { border-bottom: none; }
 .editor-item:hover { background: var(--cream); }
@@ -247,8 +229,7 @@ body { font-family: 'Heebo', sans-serif; background: var(--cream); color: var(--
   padding: 4px 8px; border-radius: 20px; border: 1px solid var(--border);
   font-family: 'Heebo', sans-serif; font-size: 11px; font-weight: 500;
   cursor: pointer; outline: none; transition: all 0.2s;
-  -webkit-appearance: none; appearance: none; text-align: center;
-  min-width: 90px;
+  -webkit-appearance: none; appearance: none; text-align: center; min-width: 90px;
 }
 .status-select.s-missing { background: var(--orange-bg); color: var(--orange); border-color: #fca99a; }
 .status-select.s-ok { background: var(--green-bg); color: var(--green); border-color: #86efb1; }
@@ -274,17 +255,14 @@ body { font-family: 'Heebo', sans-serif; background: var(--cream); color: var(--
 .add-item-btn {
   padding: 8px 14px; background: var(--gold); color: var(--navy);
   border: none; border-radius: var(--radius-sm); cursor: pointer;
-  font-family: 'Heebo', sans-serif; font-size: 13px; font-weight: 600;
-  white-space: nowrap;
+  font-family: 'Heebo', sans-serif; font-size: 13px; font-weight: 600; white-space: nowrap;
 }
 .add-item-btn:hover { background: var(--gold2); }
 
-/* ══════════════════════════════════════════
-   MODALS
-══════════════════════════════════════════ */
+/* MODALS */
 .modal-overlay {
   position: fixed; inset: 0; background: rgba(10,18,36,0.6);
-  display: flex; align-items: center; justify-content: center;
+  align-items: center; justify-content: center;
   z-index: 500; padding: 20px; display: none;
 }
 .modal-overlay.open { display: flex; }
@@ -309,21 +287,16 @@ body { font-family: 'Heebo', sans-serif; background: var(--cream); color: var(--
 .modal-btn-primary:hover { background: var(--navy2); }
 .modal-btn-cancel { background: var(--cream); color: var(--gray); border: 1px solid var(--border); }
 
-/* ══════════════════════════════════════════
-   TOAST
-══════════════════════════════════════════ */
+/* TOAST */
 .toast {
   position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(100px);
   background: var(--navy); color: white; padding: 12px 24px;
   border-radius: 30px; font-size: 14px; font-weight: 500;
-  box-shadow: var(--shadow-lg); z-index: 1000; transition: transform 0.3s ease;
-  white-space: nowrap;
+  box-shadow: var(--shadow-lg); z-index: 1000; transition: transform 0.3s ease; white-space: nowrap;
 }
 .toast.show { transform: translateX(-50%) translateY(0); }
 
-/* ══════════════════════════════════════════
-   WHATSAPP BTN
-══════════════════════════════════════════ */
+/* WHATSAPP BTN */
 .wa-btn {
   display: flex; align-items: center; gap: 6px;
   padding: 8px 16px; border-radius: var(--radius-sm);
@@ -333,7 +306,6 @@ body { font-family: 'Heebo', sans-serif; background: var(--cream); color: var(--
 }
 .wa-btn:hover { background: #20ba5a; }
 
-/* responsive */
 @media (max-width: 640px) {
   .dash-stats { grid-template-columns: repeat(2, 1fr); }
   .clients-grid { grid-template-columns: 1fr; }
@@ -344,6 +316,14 @@ body { font-family: 'Heebo', sans-serif; background: var(--cream); color: var(--
 </style>
 </head>
 <body>
+
+<!-- LOADING -->
+<div class="loading-overlay" id="loadingOverlay">
+  <div class="loading-spinner">
+    <div class="spinner"></div>
+    <div class="loading-text" id="loadingText">טוען נתונים...</div>
+  </div>
+</div>
 
 <!-- LOGIN -->
 <div id="loginView" class="view active">
@@ -372,10 +352,7 @@ body { font-family: 'Heebo', sans-serif; background: var(--cream); color: var(--
     </div>
     <button class="topbar-logout" onclick="doLogout()">יציאה</button>
   </div>
-
   <div class="app-content">
-
-    <!-- DASHBOARD TAB -->
     <div id="tabDash" class="view active">
       <div class="dash-stats" id="dashStats"></div>
       <div class="section-title-bar">
@@ -384,8 +361,6 @@ body { font-family: 'Heebo', sans-serif; background: var(--cream); color: var(--
       </div>
       <div class="clients-grid" id="dashClientGrid"></div>
     </div>
-
-    <!-- CLIENTS TAB -->
     <div id="tabClients" class="view">
       <div class="section-title-bar">
         <div class="section-heading">כל הלקוחות</div>
@@ -393,13 +368,10 @@ body { font-family: 'Heebo', sans-serif; background: var(--cream); color: var(--
       </div>
       <div class="clients-grid" id="allClientGrid"></div>
     </div>
-
-    <!-- EDITOR TAB -->
     <div id="tabEditor" class="view">
       <div class="editor-back" onclick="showTab('clients')">← חזרה לרשימת לקוחות</div>
       <div id="editorContent"></div>
     </div>
-
   </div>
 </div>
 
@@ -422,8 +394,7 @@ body { font-family: 'Heebo', sans-serif; background: var(--cream); color: var(--
 // ── CONFIG ────────────────────────────────────────────────────────────────
 const PASSWORD = "benmoshe2024";
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwopR-GkQ7Nfsboylq1kGvfpPve8k4hoNsHds-WRvgNGN_jh-vsieXjS1N1cDyEV6rt/exec";
-// When hosted on GitHub Pages, replace with your actual URL:
-const BASE_CLIENT_URL = window.location.origin + window.location.pathname.replace('index.html','').replace('benmoshe_system.html','') + "client.html";
+const BASE_CLIENT_URL = window.location.origin + window.location.pathname.replace('index.html','') + "client.html";
 
 // ── DEFAULT SECTIONS TEMPLATE ─────────────────────────────────────────────
 const DEFAULT_SECTIONS = [
@@ -486,39 +457,93 @@ const DEFAULT_SECTIONS = [
 ];
 
 // ── STATE ─────────────────────────────────────────────────────────────────
-let clients = JSON.parse(localStorage.getItem('bm_clients') || '[]');
+let clients = [];
 let currentClientId = null;
-
-function save() { localStorage.setItem('bm_clients', JSON.stringify(clients)); }
-function getClient(id) { return clients.find(c => c.id === id); }
+let isSaving = false;
 
 function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2,6); }
-
 function deepClone(obj) { return JSON.parse(JSON.stringify(obj)); }
+function getClient(id) { return clients.find(c => c.id === id); }
+
+// ── LOADING UI ────────────────────────────────────────────────────────────
+function showLoading(text) {
+  document.getElementById('loadingText').textContent = text || 'טוען...';
+  document.getElementById('loadingOverlay').classList.add('show');
+}
+function hideLoading() {
+  document.getElementById('loadingOverlay').classList.remove('show');
+}
+
+// ── API CALLS TO APPS SCRIPT ──────────────────────────────────────────────
+async function apiCall(action, data) {
+  const url = SCRIPT_URL + '?action=' + action;
+  const res = await fetch(url, {
+    method: 'POST',
+    body: JSON.stringify({ action, ...data })
+  });
+  return res.json();
+}
+
+async function loadClients() {
+  showLoading('טוען לקוחות...');
+  try {
+    const url = SCRIPT_URL + '?action=getClients';
+    const res = await fetch(url);
+    const data = await res.json();
+    if (data.success) {
+      clients = data.clients || [];
+    } else {
+      showToast('שגיאה בטעינת נתונים');
+    }
+  } catch(e) {
+    showToast('שגיאת חיבור לשרת');
+  }
+  hideLoading();
+  renderAll();
+}
+
+async function saveClients() {
+  if (isSaving) return;
+  isSaving = true;
+  try {
+    await fetch(SCRIPT_URL, {
+      method: 'POST',
+      body: JSON.stringify({ action: 'saveClients', clients })
+    });
+  } catch(e) {
+    showToast('שגיאה בשמירת נתונים');
+  }
+  isSaving = false;
+}
 
 // ── AUTH ──────────────────────────────────────────────────────────────────
 function doLogin() {
   const pw = document.getElementById('pwInput').value;
   if (pw === PASSWORD) {
     sessionStorage.setItem('bm_auth', '1');
-    window.open(window.location.href + '?app=1', '_blank');
+    document.getElementById('loginView').classList.remove('active');
+    document.getElementById('appShell').classList.add('active');
+    loadClients();
   } else {
     document.getElementById('loginErr').style.display = 'block';
   }
 }
 
-// Check if we're in app mode
-if (new URLSearchParams(window.location.search).get('app') === '1' && sessionStorage.getItem('bm_auth') === '1') {
-  document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('loginView').classList.remove('active');
-    document.getElementById('appShell').classList.add('active');
-    renderAll();
-  });
-}
 function doLogout() {
+  sessionStorage.removeItem('bm_auth');
   document.getElementById('appShell').classList.remove('active');
   document.getElementById('loginView').classList.add('active');
   document.getElementById('pwInput').value = '';
+  clients = [];
+}
+
+// Auto-login if session active
+if (sessionStorage.getItem('bm_auth') === '1') {
+  document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('loginView').classList.remove('active');
+    document.getElementById('appShell').classList.add('active');
+    loadClients();
+  });
 }
 
 // ── TOAST ─────────────────────────────────────────────────────────────────
@@ -531,8 +556,8 @@ function showToast(msg) {
 
 // ── TABS ──────────────────────────────────────────────────────────────────
 function showTab(tab) {
-  ['dash','clients','editor'].forEach(t => {
-    document.getElementById('tab' + t.charAt(0).toUpperCase() + t.slice(1)).classList.remove('active');
+  ['Dash','Clients','Editor'].forEach(t => {
+    document.getElementById('tab' + t).classList.remove('active');
   });
   document.getElementById('tab' + tab.charAt(0).toUpperCase() + tab.slice(1)).classList.add('active');
   document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
@@ -581,12 +606,13 @@ function copyLink(id) {
 function deleteClient(id) {
   if (!confirm('למחוק לקוח זה?')) return;
   clients = clients.filter(c => c.id !== id);
-  save(); renderAll();
+  saveClients();
+  renderAll();
+  showToast('✓ לקוח נמחק');
 }
 
 // ── RENDER ALL ────────────────────────────────────────────────────────────
 function renderAll() {
-  // Stats
   const total = clients.length;
   const totalMissing = clients.reduce((a,c) => a + getClientStats(c).missing, 0);
   const totalOk = clients.reduce((a,c) => a + getClientStats(c).ok, 0);
@@ -596,31 +622,39 @@ function renderAll() {
     <div class="stat-card"><div class="stat-icon">✅</div><div class="stat-num">${totalOk}</div><div class="stat-label">מסמכים התקבלו</div></div>
     <div class="stat-card"><div class="stat-icon">⏳</div><div class="stat-num">${totalMissing}</div><div class="stat-label">מסמכים חסרים</div></div>
     <div class="stat-card"><div class="stat-icon">🏁</div><div class="stat-num">${done}</div><div class="stat-label">לקוחות הושלמו</div></div>`;
-
   const grid = clients.map(clientCardHTML).join('') || '<div style="color:var(--gray);font-size:14px;padding:20px">אין לקוחות עדיין — הוסף לקוח חדש</div>';
   document.getElementById('dashClientGrid').innerHTML = grid;
   document.getElementById('allClientGrid').innerHTML = grid;
 }
 
 // ── ADD CLIENT ────────────────────────────────────────────────────────────
-function openAddModal() { document.getElementById('addModal').classList.add('open'); setTimeout(() => document.getElementById('newClientName').focus(), 100); }
-function closeModal() { document.getElementById('addModal').classList.remove('open'); document.getElementById('newClientName').value = ''; document.getElementById('newClientNotes').value = ''; }
+function openAddModal() {
+  document.getElementById('addModal').classList.add('open');
+  setTimeout(() => document.getElementById('newClientName').focus(), 100);
+}
+function closeModal() {
+  document.getElementById('addModal').classList.remove('open');
+  document.getElementById('newClientName').value = '';
+  document.getElementById('newClientNotes').value = '';
+}
 
-function addClient() {
+async function addClient() {
   const name = document.getElementById('newClientName').value.trim();
   if (!name) { showToast('יש להזין שם לקוח'); return; }
   const notes = document.getElementById('newClientNotes').value.trim();
   const newClient = { id: uid(), name, notes, created: Date.now(), sections: deepClone(DEFAULT_SECTIONS) };
   clients.unshift(newClient);
-  save(); closeModal(); renderAll();
-  showToast('✓ לקוח נוסף בהצלחה');
+  closeModal();
+  renderAll();
+  showToast('✓ לקוח נוסף — שומר...');
+  await saveClients();
+  showToast('✓ לקוח נשמר בענן');
 }
 
 // ── EDITOR ────────────────────────────────────────────────────────────────
 function openEditor(id) {
   currentClientId = id;
-  const c = getClient(id);
-  renderEditor(c);
+  renderEditor(getClient(id));
   showTab('editor');
 }
 
@@ -629,7 +663,7 @@ function renderEditor(c) {
   const pct = st.total > 0 ? Math.round(st.ok / st.total * 100) : 0;
   const clientUrl = BASE_CLIENT_URL + '?client=' + encodeURIComponent(c.name) + '&id=' + c.id;
 
-  let sectionsHTML = c.sections.map((sec, si) => {
+  const sectionsHTML = c.sections.map((sec, si) => {
     const secOk = sec.items.filter(i => i.status === 'ok').length;
     const secTotal = sec.items.filter(i => i.status !== 'na').length;
     const itemsHTML = sec.items.map((item, ii) => `
@@ -646,7 +680,6 @@ function renderEditor(c) {
         </select>
         <button class="item-del-btn" onclick="deleteItem('${c.id}',${si},${ii})" title="מחק פריט">×</button>
       </div>`).join('');
-
     return `
       <div class="editor-section">
         <div class="editor-section-header" onclick="toggleEditorSection(${si})">
@@ -685,41 +718,35 @@ function renderEditor(c) {
 }
 
 function toggleEditorSection(si) {
-  const body = document.getElementById(`esec-${si}`);
-  const tog = document.getElementById(`etoggle-${si}`);
-  body.classList.toggle('collapsed');
-  tog.classList.toggle('open');
+  document.getElementById(`esec-${si}`).classList.toggle('collapsed');
+  document.getElementById(`etoggle-${si}`).classList.toggle('open');
 }
 
-function changeStatus(clientId, si, ii, val) {
+async function changeStatus(clientId, si, ii, val) {
   const c = getClient(clientId);
   c.sections[si].items[ii].status = val;
   const sel = document.querySelector(`#eitem-${si}-${ii} .status-select`);
-  if (sel) { sel.className = 'status-select s-' + val; }
-  save();
+  if (sel) sel.className = 'status-select s-' + val;
+  await saveClients();
 }
 
-function deleteItem(clientId, si, ii) {
+async function deleteItem(clientId, si, ii) {
   const c = getClient(clientId);
   c.sections[si].items.splice(ii, 1);
-  save(); renderEditor(c);
+  renderEditor(c);
+  await saveClients();
 }
 
-function addItem(clientId, si) {
+async function addItem(clientId, si) {
   const inp = document.getElementById(`newitem-${si}`);
   const text = inp.value.trim();
   if (!text) return;
   const c = getClient(clientId);
   c.sections[si].items.push({ id: uid(), text, note: '', status: 'missing' });
-  save(); inp.value = ''; renderEditor(c);
+  inp.value = '';
+  renderEditor(c);
   showToast('✓ פריט נוסף');
-}
-
-// ── INIT ──────────────────────────────────────────────────────────────────
-// Add demo client if empty
-if (clients.length === 0) {
-  clients.push({ id: uid(), name: 'ישראל ישראלי (דוגמה)', notes: 'שכיר + הכנסות מנכס', created: Date.now(), sections: deepClone(DEFAULT_SECTIONS) });
-  save();
+  await saveClients();
 }
 </script>
 </body>
